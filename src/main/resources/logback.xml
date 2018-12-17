@@ -5,12 +5,19 @@
     <resetJUL>true</resetJUL>
   </contextListener>
 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--<pattern>%d{MM-dd HH:mm:ss.SSS} %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] %logger{36}:%L- %msg%n</pattern>
+        </encoder>
+    </appender>
+
   <appender name="FILE_ERR" class="ch.qos.logback.core.rolling.RollingFileAppender">
 	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
-      <level>WARN</level>
+      <level>debug</level>
     </filter>   
   	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
-      <fileNamePattern>err_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>   
+      <fileNamePattern>${APP_HOME}/logs/err_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
       <maxHistory>30</maxHistory>    
     </rollingPolicy>   
     <encoder>
@@ -20,7 +27,7 @@
    
   <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
   	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
-      <fileNamePattern>info_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>   
+      <fileNamePattern>${APP_HOME}/logs/info_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
       <maxHistory>30</maxHistory>    
     </rollingPolicy>   
     <encoder>
@@ -29,7 +36,7 @@
   </appender>
    <appender name="DB_FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
   	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
-      <fileNamePattern>db_access_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>   
+      <fileNamePattern>${APP_HOME}/logs/db_access_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
       <maxHistory>30</maxHistory>    
     </rollingPolicy>   
     <encoder>
@@ -42,17 +49,10 @@
 	<appender-ref ref ="FILE_ERR"/> 
    </appender> 
  
-    <logger name="com.xy.caipiao.host.online.aop.ServiceAspect" level="INFO" additivity="false"> 
-	<queueSize>51200</queueSize> 
-        <appender-ref ref="FILE_INFO" />  
-    </logger>  
 
-    <logger name="com.xy.caipiao.host.online.aop.DaoAspect" level="INFO" additivity="false"> 
-	<queueSize>51200</queueSize> 
-        <appender-ref ref="DB_FILE_INFO" />  
-    </logger>  
-     
-  <root level="WARN">
-	<appender-ref ref="ASYNC" />
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="FILE_INFO" />
+    <appender-ref ref="FILE_ERR" />
   </root>
 </configuration>
