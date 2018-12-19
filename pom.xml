@@ -13,6 +13,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.9.RELEASE</version>
+        <relativePath>./</relativePath>
     </parent>
 
     <properties>
@@ -22,6 +23,13 @@
 
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
@@ -213,5 +221,33 @@
         </extensions>
     </build>
 
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Releases</name>
+            <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Snapshot</name>
+            <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+    <repositories>
+        <repository>
+            <id>maven-central</id>
+            <name>maven-central</name>
+            <url>http://127.0.0.1:8081/repository/maven-central/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
 </project>
