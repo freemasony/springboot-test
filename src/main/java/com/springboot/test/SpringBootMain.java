@@ -9,7 +9,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.servlet.MultipartConfigElement;
 import java.io.File;
@@ -20,7 +23,10 @@ import java.io.File;
 @Slf4j
 @EnableScheduling
 @SpringBootApplication
+@EnableAsync
 public class SpringBootMain extends SpringBootServletInitializer {
+
+
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootMain.class, args);
@@ -61,5 +67,9 @@ public class SpringBootMain extends SpringBootServletInitializer {
         factory.setLocation(location);
         return factory.createMultipartConfig();
     }
+
+
+
+
 
 }

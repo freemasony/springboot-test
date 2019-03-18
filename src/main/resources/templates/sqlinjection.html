@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<H4 >模拟登陆时sql注入</H4>
+    <form action="#" id="form" method="post" th:action="@{/sqlinjection}" th:object="${admin}">
+        <label >姓名:</label>
+        <input type="text" th:field="*{userName}" /><br/>
+        <label >密码:</label>
+        <input type="text" th:field="*{password}" /><br/>
+        <input type="submit" />
+    </form>
+</body>
+</html>
