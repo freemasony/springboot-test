@@ -1,5 +1,6 @@
 package com.springboot.test;
 
+import com.springboot.test.websocket.NettyServer;
 import com.xxl.job.core.executor.XxlJobExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,8 +29,9 @@ public class SpringBootMain extends SpringBootServletInitializer {
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(SpringBootMain.class, args);
+        new NettyServer(12345).start();
     }
 
     @Override
