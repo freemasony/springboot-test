@@ -27,11 +27,9 @@ import java.io.File;
 @EnableAsync
 public class SpringBootMain extends SpringBootServletInitializer {
 
-
-
     public static void main(String[] args) throws Exception {
         SpringApplication.run(SpringBootMain.class, args);
-        new NettyServer(12345).start();
+        new NettyServer(23456).start();
     }
 
     @Override

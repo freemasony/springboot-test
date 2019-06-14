@@ -8,6 +8,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
@@ -27,7 +28,9 @@ public class NettyServer {
     }
 
     public void start() throws Exception{
+        //用来处理已经被接收的连接
         EventLoopGroup bossGroup = new NioEventLoopGroup();
+        //用来接收进来的连接
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             ServerBootstrap sb = new ServerBootstrap();
@@ -35,10 +38,10 @@ public class NettyServer {
             sb.group(group, bossGroup) // 绑定线程池
                     .channel(NioServerSocketChannel.class) // 指定使用的channel
                     .localAddress(this.port)// 绑定监听端口
-                    .childHandler(new ChannelInitializer<SocketChannel>() { // 绑定客户端连接时候触发操作
+                    .childHandler(new ChannelInitializer<NioSocketChannel>() { // 绑定客户端连接时候触发操作
 
                         @Override
-                        protected void initChannel(SocketChannel ch) throws Exception {
+                        protected void initChannel(NioSocketChannel ch) throws Exception {
                             log.info("收到新连接");
                             //websocket协议本身是基于http协议的，所以这边也要使用http解编码器
                             ch.pipeline().addLast(new HttpServerCodec());
