@@ -2,9 +2,9 @@ package com.springboot.test.alipay.config;
 
 /**
  * @author zhoujian
- * @date 2019/6/13
+ * @date 2019/6/15
  */
-public class AlipayConfig {
+public class AlipayWapConfig {
     // 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号
     public static String app_id = "2016093600634216";
 
@@ -15,10 +15,10 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIGfMA0GCSqGSWb3DQEBAQUAA4GAADCBiQKBgQDIgHnOn7LLILlKETd6BFRJ0GqgS2Y3mn1wMQmyh9zEyWlz5p1zrahRahbXAfCfSqshSNfqOmAQzSHRVjCqjsAw1jyqrXaPdKBmr90DIpIxmIyKXv4GGAkPyJ/6FTFY99uhpiq0qadD/uSzQsefWo0aTvP/65zi3eof7TcZ32oWpwIDAQAB";
 
     // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String notify_url = "http://127.0.0.1:9010/alipay/alipayNotifyNotice";
+    public static String notify_url = "http://127.0.0.1:9010/alipay/wap/alipayNotifyNotice";
 
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String return_url = "http://127.0.0.1:9010/alipay/alipayReturnNotice";
+    public static String return_url = "http://127.0.0.1:9010/alipay/wap/alipayReturnNotice";
 
     // 签名方式
     public static String sign_type = "RSA";
@@ -28,5 +28,4 @@ public class AlipayConfig {
 
     // 支付宝网关
     public static String gatewayUrl = "https://openapi.alipaydev.com/gateway.do";
-
 }
