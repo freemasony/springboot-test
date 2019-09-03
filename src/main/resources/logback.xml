@@ -12,47 +12,47 @@
         </encoder>
     </appender>
 
-  <appender name="FILE_ERR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
-      <level>debug</level>
-    </filter>   
-  	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
-      <fileNamePattern>${APP_HOME}/logs/err_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
-      <maxHistory>30</maxHistory>    
-    </rollingPolicy>   
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-3level %logger{26} - %marker %msg%n</pattern>
-    </encoder>
-  </appender>
-   
-  <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-  	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
-      <fileNamePattern>${APP_HOME}/logs/info_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
-      <maxHistory>30</maxHistory>    
-    </rollingPolicy>   
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-3level %logger{26} - %marker %msg%n</pattern>
-    </encoder>
-  </appender>
-   <appender name="DB_FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-  	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
-      <fileNamePattern>${APP_HOME}/logs/db_access_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
-      <maxHistory>30</maxHistory>    
-    </rollingPolicy>   
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-3level %logger{26} - %marker %msg%n</pattern>
-    </encoder>
-  </appender>
-    
-   <appender name ="ASYNC" class= "ch.qos.logback.classic.AsyncAppender">  
-	<queueSize>51200</queueSize>  
-	<appender-ref ref ="FILE_ERR"/> 
-   </appender> 
+  <!--<appender name="FILE_ERR" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+	<!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">   -->
+      <!--<level>debug</level>-->
+    <!--</filter>   -->
+  	<!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   -->
+      <!--<fileNamePattern>${APP_HOME}/logs/err_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+      <!--<maxHistory>30</maxHistory>    -->
+    <!--</rollingPolicy>   -->
+    <!--<encoder>-->
+      <!--<pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-3level %logger{26} - %marker %msg%n</pattern>-->
+    <!--</encoder>-->
+  <!--</appender>-->
+   <!---->
+  <!--<appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+  	<!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   -->
+      <!--<fileNamePattern>${APP_HOME}/logs/info_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+      <!--<maxHistory>30</maxHistory>    -->
+    <!--</rollingPolicy>   -->
+    <!--<encoder>-->
+      <!--<pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-3level %logger{26} - %marker %msg%n</pattern>-->
+    <!--</encoder>-->
+  <!--</appender>-->
+   <!--<appender name="DB_FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+  	<!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   -->
+      <!--<fileNamePattern>${APP_HOME}/logs/db_access_logFile.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+      <!--<maxHistory>30</maxHistory>    -->
+    <!--</rollingPolicy>   -->
+    <!--<encoder>-->
+      <!--<pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-3level %logger{26} - %marker %msg%n</pattern>-->
+    <!--</encoder>-->
+  <!--</appender>-->
+    <!---->
+   <!--<appender name ="ASYNC" class= "ch.qos.logback.classic.AsyncAppender">  -->
+	<!--<queueSize>51200</queueSize>  -->
+	<!--<appender-ref ref ="FILE_ERR"/> -->
+   <!--</appender> -->
  
 
   <root level="info">
     <appender-ref ref="STDOUT" />
-    <appender-ref ref="FILE_INFO" />
-    <appender-ref ref="FILE_ERR" />
+    <!--<appender-ref ref="FILE_INFO" />-->
+    <!--<appender-ref ref="FILE_ERR" />-->
   </root>
 </configuration>

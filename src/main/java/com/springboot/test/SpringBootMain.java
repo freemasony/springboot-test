@@ -3,6 +3,7 @@ package com.springboot.test;
 import com.springboot.test.websocket.NettyServer;
 import com.xxl.job.core.executor.XxlJobExecutor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,13 +11,19 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.util.ResourceUtils;
 
 import javax.servlet.MultipartConfigElement;
 import java.io.File;
+import java.io.FileNotFoundException;
+
+import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
 
 /**
  * Created by Administrator on 2017/5/31.
@@ -40,7 +47,7 @@ public class SpringBootMain extends SpringBootServletInitializer {
 
 
 
-//    @Bean(initMethod = "start",destroyMethod = "destroy")
+    @Bean(initMethod = "start",destroyMethod = "destroy")
     public XxlJobExecutor xxlJobExecutor(@Value("${xxl.job.address}") String address,
                                          @Value("${xxl.job.logpath}")String logpath,
                                          @Value("${xxl.job.executor.port}") int port){
@@ -52,14 +59,14 @@ public class SpringBootMain extends SpringBootServletInitializer {
         return xxlJobExecutor;
     }
 
-
     /**
      * 文件上传临时路径
      */
     @Bean
-    MultipartConfigElement multipartConfigElement() {
+    MultipartConfigElement multipartConfigElement() throws FileNotFoundException {
         MultipartConfigFactory factory = new MultipartConfigFactory();
-        String location = System.getProperty("user.dir") + "/data/tmp";
+
+        String location = System.getProperty("user.dir") + "src/main/resources/excel";
         File tmpFile = new File(location);
         if (!tmpFile.exists()) {
             tmpFile.mkdirs();

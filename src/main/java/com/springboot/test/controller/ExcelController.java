@@ -71,7 +71,7 @@ public class ExcelController {
 
     private List<ExportInfo> getList() {
         List<ExportInfo> list = new ArrayList<>();
-        for (int i = 0; i < 300000; i++) {
+        for (int i = 0; i < 10000; i++) {
             ExportInfo model1 = new ExportInfo();
             model1.setName("howie");
             model1.setAge("19");
