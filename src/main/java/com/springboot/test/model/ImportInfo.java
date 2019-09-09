@@ -2,6 +2,7 @@ package com.springboot.test.model;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.metadata.BaseRowModel;
+import lombok.NoArgsConstructor;
 
 /**
  * Created with IntelliJ IDEA
@@ -10,6 +11,7 @@ import com.alibaba.excel.metadata.BaseRowModel;
  * @Description 导入 Excel 时使用的映射实体类，Excel 模型
  * @Date 2018-12-19
  */
+@NoArgsConstructor
 public class ImportInfo extends BaseRowModel {
     @ExcelProperty(index = 0)
     private String name;

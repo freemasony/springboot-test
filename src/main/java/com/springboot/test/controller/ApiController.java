@@ -1,10 +1,13 @@
 package com.springboot.test.controller;
 
+import cn.jiguang.common.resp.APIConnectionException;
+import cn.jiguang.common.resp.APIRequestException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.springboot.test.common.JsonRsult;
 import com.springboot.test.model.entity.Admin;
 import com.springboot.test.model.vo.JsonInfo;
+import com.springboot.test.push.jgpush.JPushService;
 import com.springboot.test.service.AdminService;
 import com.springboot.test.service.MailService;
 import com.springboot.test.service.ThreadService;
@@ -37,6 +40,9 @@ public class ApiController {
 
     @Autowired
     private ThreadService threadService;
+
+    @Autowired
+    private JPushService jPushService;
 
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
@@ -139,6 +145,16 @@ public class ApiController {
         JsonRsult rsult=new JsonRsult();
         rsult.setCode("0000");
         rsult.setMsg(image);
+        return rsult;
+    }
+
+    @RequestMapping(value = "/push",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonRsult push() throws APIConnectionException, APIRequestException {
+        JsonRsult rsult=new JsonRsult();
+        jPushService.push();
+        rsult.setCode("0000");
+        rsult.setMsg("");
         return rsult;
     }
 }

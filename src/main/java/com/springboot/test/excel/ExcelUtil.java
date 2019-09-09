@@ -25,15 +25,15 @@ public class ExcelUtil {
      * @param rowModel 实体类映射，继承 BaseRowModel 类
      * @return Excel 数据 list
      */
-    public static List<Object> readExcel(MultipartFile excel, BaseRowModel rowModel) {
-        ExcelListener excelListener = new ExcelListener();
+    public static <T extends BaseRowModel> List<T> readExcel(MultipartFile excel, Class<T> rowModel) {
+        ExcelListener excelListener = new ExcelListener<T>();
         ExcelReader reader = getReader(excel, excelListener);
         if (reader == null) {
             return null;
         }
         for (Sheet sheet : reader.getSheets()) {
             if (rowModel != null) {
-                sheet.setClazz(rowModel.getClass());
+                sheet.setClazz(rowModel);
             }
             reader.read(sheet);
         }

@@ -1,5 +1,7 @@
 package com.springboot.test;
 
+import cn.jiguang.common.ClientConfig;
+import cn.jpush.api.JPushClient;
 import com.springboot.test.websocket.NettyServer;
 import com.xxl.job.core.executor.XxlJobExecutor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +49,7 @@ public class SpringBootMain extends SpringBootServletInitializer {
 
 
 
-    @Bean(initMethod = "start",destroyMethod = "destroy")
+//    @Bean(initMethod = "start",destroyMethod = "destroy")
     public XxlJobExecutor xxlJobExecutor(@Value("${xxl.job.address}") String address,
                                          @Value("${xxl.job.logpath}")String logpath,
                                          @Value("${xxl.job.executor.port}") int port){
@@ -77,6 +79,13 @@ public class SpringBootMain extends SpringBootServletInitializer {
 
 
 
-
+    @Bean
+    JPushClient jPushClient(){
+        ClientConfig config = ClientConfig.getInstance();
+        config.setPushHostName("https://api.jpush.cn");
+        config.setApnsProduction(true);
+        JPushClient jPushClient=new JPushClient("ada966c60f603678cd47cca1","d870ee3c0d0fa8304f64eeca",null,config);
+        return jPushClient;
+    }
 
 }

@@ -28,7 +28,8 @@ public class ExcelController {
      */
     @RequestMapping(value = "readExcelWithSheets", method = RequestMethod.POST)
     public Object readExcelWithSheets(MultipartFile excel) {
-        return ExcelUtil.readExcel(excel, new ImportInfo());
+        List<ImportInfo> list= ExcelUtil.readExcel(excel, ImportInfo.class);
+        return list;
     }
 
     /**
