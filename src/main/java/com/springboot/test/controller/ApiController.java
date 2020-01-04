@@ -1,9 +1,14 @@
 package com.springboot.test.controller;
 
+import cn.jiguang.common.resp.APIConnectionException;
+import cn.jiguang.common.resp.APIRequestException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.springboot.test.common.JsonRsult;
 import com.springboot.test.model.UserInfo;
 import com.springboot.test.model.entity.Admin;
+import com.springboot.test.model.vo.JsonInfo;
+import com.springboot.test.push.jgpush.JPushService;
 import com.springboot.test.service.AdminService;
 import com.springboot.test.service.MailService;
 import com.springboot.test.service.ThreadService;
@@ -20,6 +25,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zhoujian on 2018/9/5.
@@ -37,6 +44,9 @@ public class ApiController {
 
     @Autowired
     private ThreadService threadService;
+
+    @Autowired
+    private JPushService jPushService;
 
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
@@ -121,13 +131,50 @@ public class ApiController {
 
     @RequestMapping(value = "/jihe",method = RequestMethod.POST)
     @ResponseBody
-    public JsonRsult listParams(@RequestBody UserInfo userInfo){
-        JsonRsult rsult=new JsonRsult();
+    public JsonRsult listParams(@RequestBody UserInfo userInfo) {
+        JsonRsult rsult = new JsonRsult();
 
-        Map<String,Object> map=new HashMap<>();
-        map.put("userInfo",userInfo);
+        Map<String, Object> map = new HashMap<>();
+        map.put("userInfo", userInfo);
         rsult.setCode("0000");
         rsult.setData(map);
+        return rsult;
+    }
+
+    @RequestMapping(value = "/jackson",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonRsult<JsonInfo> jackson(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        String json="{\"aname\":\"周建\",\"aage\":30,\"asex\":\"男\"}";
+        ObjectMapper mapper=new ObjectMapper();
+        JsonInfo info=mapper.readValue(json, JsonInfo.class);
+        JsonRsult rsult=new JsonRsult();
+        rsult.setCode("0000");
+        rsult.setMsg("发送成功");
+        rsult.getData().put("info",info);
+        return rsult;
+    }
+
+
+    @RequestMapping(value = "/image",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonRsult image(HttpServletRequest request,HttpServletResponse response,String image){
+        JsonRsult rsult=new JsonRsult();
+        rsult.setCode("0000");
+        rsult.setMsg(image);
+        return rsult;
+    }
+
+    @RequestMapping(value = "/push",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonRsult push() throws APIConnectionException, APIRequestException, InterruptedException {
+        JsonRsult rsult=new JsonRsult();
+        for(int i=1;i<=10;i++){
+            jPushService.push();
+            TimeUnit.SECONDS.sleep(1);
+        }
+
+        rsult.setCode("0000");
+        rsult.setMsg("");
         return rsult;
     }
 }

@@ -3,6 +3,7 @@ package com.springboot.test.excel;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +11,17 @@ import java.util.List;
 /**
  * 监听类，可以自定义
  */
-public class ExcelListener extends AnalysisEventListener {
+public class ExcelListener<T> extends AnalysisEventListener<T> {
 
     //自定义用于暂时存储data。
     //可以通过实例获取该值
-    private List<Object> datas = new ArrayList<>();
+    private List<T> datas = new ArrayList<>();
 
     /**
      * 通过 AnalysisContext 对象还可以获取当前 sheet，当前行等数据
      */
     @Override
-    public void invoke(Object object, AnalysisContext context) {
+    public void invoke(T object, AnalysisContext context) {
         //数据存储到list，供批量处理，或后续自己业务逻辑处理。
         datas.add(object);
         //根据业务自行 do something
@@ -52,11 +53,11 @@ public class ExcelListener extends AnalysisEventListener {
          */
     }
 
-    public List<Object> getDatas() {
+    public List<T> getDatas() {
         return datas;
     }
 
-    public void setDatas(List<Object> datas) {
+    public void setDatas(List<T> datas) {
         this.datas = datas;
     }
 }
