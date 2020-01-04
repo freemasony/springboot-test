@@ -2,6 +2,7 @@ package com.springboot.test.controller;
 
 import com.google.common.collect.Maps;
 import com.springboot.test.common.JsonRsult;
+import com.springboot.test.model.UserInfo;
 import com.springboot.test.model.entity.Admin;
 import com.springboot.test.service.AdminService;
 import com.springboot.test.service.MailService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -117,5 +119,15 @@ public class ApiController {
         return rsult;
     }
 
+    @RequestMapping(value = "/jihe",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonRsult listParams(@RequestBody UserInfo userInfo){
+        JsonRsult rsult=new JsonRsult();
 
+        Map<String,Object> map=new HashMap<>();
+        map.put("userInfo",userInfo);
+        rsult.setCode("0000");
+        rsult.setData(map);
+        return rsult;
+    }
 }
