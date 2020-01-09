@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import com.springboot.test.common.JsonRsult;
 import com.springboot.test.model.entity.Admin;
 import com.springboot.test.model.vo.JsonInfo;
+import com.springboot.test.push.dingding.DingtalkService;
 import com.springboot.test.push.jgpush.JPushService;
 import com.springboot.test.service.AdminService;
 import com.springboot.test.service.MailService;
@@ -157,4 +158,20 @@ public class ApiController {
         rsult.setMsg("");
         return rsult;
     }
+
+    @RequestMapping(value = "/dd",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonRsult dd() throws Exception {
+        JsonRsult rsult=new JsonRsult();
+//        dingtalkService.getAuthScopes();
+//        dingtalkService.getDepartmentList();
+//        dingtalkService.getUserInfoByDepartMentId();
+//        dingtalkService.send();
+        rsult.setCode("0000");
+        rsult.setMsg("");
+        return rsult;
+    }
+
+
+
 }

@@ -64,7 +64,7 @@ public class SpringBootMain extends SpringBootServletInitializer {
     /**
      * 文件上传临时路径
      */
-    @Bean
+//    @Bean
     MultipartConfigElement multipartConfigElement() throws FileNotFoundException {
         MultipartConfigFactory factory = new MultipartConfigFactory();
 

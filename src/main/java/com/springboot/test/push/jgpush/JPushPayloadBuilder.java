@@ -19,7 +19,7 @@ public class JPushPayloadBuilder {
         //创建一个IosAlert对象，可指定APNs的alert、title等字段
         IosAlert iosAlert =  IosAlert.newBuilder().setTitleAndBody(notificationTitle,"", msgContent).build();
         return PushPayload.newBuilder()
-                .setPlatform(Platform.android_ios())
+                .setPlatform(Platform.all())
                 .setAudience(Audience.all())
                 .setNotification(Notification.newBuilder()
                         .setAlert(notificationTitle)
@@ -38,7 +38,7 @@ public class JPushPayloadBuilder {
                                 .incrBadge(1)
                                 //此字段的值default表示系统默认声音；传sound.caf表示此推送以项目里面打包的sound.caf声音来提醒，
                                 // 如果系统没有此音频则以系统默认声音提醒；此字段如果传空字符串，iOS9及以上的系统是无声音提醒，以下的系统是默认声音
-//                                .setSound("sound.caf")
+                                .setSound("sound.caf")
                                 //此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
                                 .addExtras(extrasParam)
                                 //此项说明此推送是一个background推送，想了解background看：http://docs.jpush.io/client/ios_tutorials/#ios-7-background-remote-notification
