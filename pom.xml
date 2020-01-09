@@ -278,28 +278,16 @@
         <repository>
             <id>releases</id>
             <name>Releases</name>
-            <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+            <url>http://127.0.0.1:8881/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
             <name>Snapshot</name>
-            <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
+            <url>http://127.0.0.1:8881/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
 
-    <repositories>
-        <repository>
-            <id>maven-central</id>
-            <name>maven-central</name>
-            <url>http://127.0.0.1:8081/repository/maven-central/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
+
 
 </project>

@@ -5,6 +5,7 @@ import cn.jiguang.common.resp.APIRequestException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.springboot.test.common.JsonRsult;
+import com.springboot.test.model.UserInfo;
 import com.springboot.test.model.entity.Admin;
 import com.springboot.test.model.vo.JsonInfo;
 import com.springboot.test.push.dingding.DingtalkService;
@@ -22,8 +23,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zhoujian on 2018/9/5.
@@ -126,6 +130,18 @@ public class ApiController {
         return rsult;
     }
 
+    @RequestMapping(value = "/jihe",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonRsult listParams(@RequestBody UserInfo userInfo) {
+        JsonRsult rsult = new JsonRsult();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("userInfo", userInfo);
+        rsult.setCode("0000");
+        rsult.setData(map);
+        return rsult;
+    }
+
     @RequestMapping(value = "/jackson",method = RequestMethod.GET)
     @ResponseBody
     public JsonRsult<JsonInfo> jackson(HttpServletRequest request,HttpServletResponse response) throws IOException {
@@ -151,9 +167,13 @@ public class ApiController {
 
     @RequestMapping(value = "/push",method = RequestMethod.GET)
     @ResponseBody
-    public JsonRsult push() throws APIConnectionException, APIRequestException {
+    public JsonRsult push() throws APIConnectionException, APIRequestException, InterruptedException {
         JsonRsult rsult=new JsonRsult();
-        jPushService.push();
+        for(int i=1;i<=10;i++){
+            jPushService.push();
+            TimeUnit.SECONDS.sleep(1);
+        }
+
         rsult.setCode("0000");
         rsult.setMsg("");
         return rsult;

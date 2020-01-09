@@ -82,7 +82,7 @@ public class SpringBootMain extends SpringBootServletInitializer {
     @Bean
     JPushClient jPushClient(){
         ClientConfig config = ClientConfig.getInstance();
-        config.setPushHostName("https://api.jpush.cn");
+        config.setPushHostName("https://bjapi.jpush.cn");
         config.setApnsProduction(true);
         JPushClient jPushClient=new JPushClient("ada966c60f603678cd47cca1","d870ee3c0d0fa8304f64eeca",null,config);
         return jPushClient;

@@ -21,7 +21,7 @@ public class JPushService {
     private JPushClient jPushClient;
 
     public void push() throws APIConnectionException, APIRequestException {
-        PushPayload pushPayload = JPushPayloadBuilder.buildPushNotification_android_and_ios(60,"无耻冠群拖欠工资", "还我血汗钱", new HashMap<>());
+        PushPayload pushPayload = JPushPayloadBuilder.buildPushNotification_android_and_ios(60,"刘广东死全家", "刘广东死全家，冠群欠钱不还！！！", new HashMap<>());
         PushResult pushResult = jPushClient.sendPush(pushPayload);
         System.out.println(pushResult);
     }
