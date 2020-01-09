@@ -8,7 +8,6 @@ import com.springboot.test.common.JsonRsult;
 import com.springboot.test.model.UserInfo;
 import com.springboot.test.model.entity.Admin;
 import com.springboot.test.model.vo.JsonInfo;
-import com.springboot.test.push.dingding.DingtalkService;
 import com.springboot.test.push.jgpush.JPushService;
 import com.springboot.test.service.AdminService;
 import com.springboot.test.service.MailService;

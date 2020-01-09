@@ -4,6 +4,7 @@ import cn.jiguang.common.ClientConfig;
 import cn.jpush.api.JPushClient;
 import com.springboot.test.websocket.NettyServer;
 import com.xxl.job.core.executor.XxlJobExecutor;
+import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,13 +50,13 @@ public class SpringBootMain extends SpringBootServletInitializer {
 
 
 
-//    @Bean(initMethod = "start",destroyMethod = "destroy")
-    public XxlJobExecutor xxlJobExecutor(@Value("${xxl.job.address}") String address,
+    @Bean(initMethod = "start",destroyMethod = "destroy")
+    public XxlJobSpringExecutor  xxlJobExecutor(@Value("${xxl.job.address}") String address,
                                          @Value("${xxl.job.logpath}")String logpath,
                                          @Value("${xxl.job.executor.port}") int port){
-        XxlJobExecutor xxlJobExecutor=new XxlJobExecutor();
+        XxlJobSpringExecutor xxlJobExecutor=new XxlJobSpringExecutor ();
         xxlJobExecutor.setPort(port);
-        xxlJobExecutor.setAppName("xxl-job-springboot");
+        xxlJobExecutor.setAppName("xxl-job-executor-sample");
         xxlJobExecutor.setAdminAddresses(address);
         xxlJobExecutor.setLogPath(logpath);
         return xxlJobExecutor;

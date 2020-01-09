@@ -7,6 +7,8 @@ import com.xxl.job.core.log.XxlJobLogger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Logger;
+
 /**
  * @author zhoujian
  * @date 2019/7/31
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class TaskHandler extends IJobHandler {
     @Override
     public ReturnT<String> execute(String s) throws Exception {
+        log.info("参数:{}",s);
         XxlJobLogger.log("自动跑批任务开始...");
         XxlJobLogger.log("自动跑批任务完成...");
         return ReturnT.SUCCESS;
