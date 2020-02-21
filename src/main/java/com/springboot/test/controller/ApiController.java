@@ -4,7 +4,7 @@ import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
-import com.springboot.test.common.JsonRsult;
+import com.springboot.test.common.JsonResult;
 import com.springboot.test.model.UserInfo;
 import com.springboot.test.model.entity.Admin;
 import com.springboot.test.model.vo.JsonInfo;
@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -58,8 +57,8 @@ public class ApiController {
 
     @RequestMapping(value = "/sendmail/{sendType}",method = RequestMethod.GET)
     @ResponseBody
-    public JsonRsult sendMail(HttpServletRequest request,HttpServletResponse response, @PathVariable(name = "sendType") int sendType){
-        JsonRsult rsult=new JsonRsult();
+    public JsonResult sendMail(HttpServletRequest request, HttpServletResponse response, @PathVariable(name = "sendType") int sendType){
+        JsonResult rsult=new JsonResult();
 
         logger.info("***sendType:"+sendType);
 
@@ -94,8 +93,8 @@ public class ApiController {
 
     @RequestMapping(value = "/sqlinjection",method = RequestMethod.POST)
     @ResponseBody
-    public JsonRsult sqlInjection(@ModelAttribute(name = "admin")Admin admin){
-        JsonRsult rsult=new JsonRsult();
+    public JsonResult sqlInjection(@ModelAttribute(name = "admin")Admin admin){
+        JsonResult rsult=new JsonResult();
 
         logger.info("参数:username{}|password:{}",admin.getUserName(),admin.getPassword());
 
@@ -111,8 +110,8 @@ public class ApiController {
 
     @RequestMapping(value = "/threadtest",method = RequestMethod.GET)
     @ResponseBody
-    public JsonRsult threadtest(HttpServletRequest request,HttpServletResponse response){
-        JsonRsult rsult=new JsonRsult();
+    public JsonResult threadtest(HttpServletRequest request, HttpServletResponse response){
+        JsonResult rsult=new JsonResult();
 
 
         for (int i = 0; i < 16; i++) {
@@ -131,8 +130,8 @@ public class ApiController {
 
     @RequestMapping(value = "/jihe",method = RequestMethod.POST)
     @ResponseBody
-    public JsonRsult listParams(@RequestBody UserInfo userInfo) {
-        JsonRsult rsult = new JsonRsult();
+    public JsonResult listParams(@RequestBody UserInfo userInfo) {
+        JsonResult rsult = new JsonResult();
 
         Map<String, Object> map = new HashMap<>();
         map.put("userInfo", userInfo);
@@ -143,11 +142,11 @@ public class ApiController {
 
     @RequestMapping(value = "/jackson",method = RequestMethod.GET)
     @ResponseBody
-    public JsonRsult<JsonInfo> jackson(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public JsonResult<JsonInfo> jackson(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String json="{\"aname\":\"周建\",\"aage\":30,\"asex\":\"男\"}";
         ObjectMapper mapper=new ObjectMapper();
         JsonInfo info=mapper.readValue(json, JsonInfo.class);
-        JsonRsult rsult=new JsonRsult();
+        JsonResult rsult=new JsonResult();
         rsult.setCode("0000");
         rsult.setMsg("发送成功");
         rsult.getData().put("info",info);
@@ -157,8 +156,8 @@ public class ApiController {
 
     @RequestMapping(value = "/image",method = RequestMethod.POST)
     @ResponseBody
-    public JsonRsult image(HttpServletRequest request,HttpServletResponse response,String image){
-        JsonRsult rsult=new JsonRsult();
+    public JsonResult image(HttpServletRequest request, HttpServletResponse response, String image){
+        JsonResult rsult=new JsonResult();
         rsult.setCode("0000");
         rsult.setMsg(image);
         return rsult;
@@ -166,8 +165,8 @@ public class ApiController {
 
     @RequestMapping(value = "/push",method = RequestMethod.GET)
     @ResponseBody
-    public JsonRsult push() throws APIConnectionException, APIRequestException, InterruptedException {
-        JsonRsult rsult=new JsonRsult();
+    public JsonResult push() throws APIConnectionException, APIRequestException, InterruptedException {
+        JsonResult rsult=new JsonResult();
         for(int i=1;i<=10;i++){
             jPushService.push();
             TimeUnit.SECONDS.sleep(1);
@@ -180,8 +179,8 @@ public class ApiController {
 
     @RequestMapping(value = "/dd",method = RequestMethod.GET)
     @ResponseBody
-    public JsonRsult dd() throws Exception {
-        JsonRsult rsult=new JsonRsult();
+    public JsonResult dd() throws Exception {
+        JsonResult rsult=new JsonResult();
 //        dingtalkService.getAuthScopes();
 //        dingtalkService.getDepartmentList();
 //        dingtalkService.getUserInfoByDepartMentId();

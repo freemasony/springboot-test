@@ -1,7 +1,6 @@
 package com.springboot.test.service;
 
 
-import com.springboot.test.config.JdbcConfig;
 import com.springboot.test.model.entity.Admin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

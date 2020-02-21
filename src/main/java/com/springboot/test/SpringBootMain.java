@@ -2,6 +2,7 @@ package com.springboot.test;
 
 import cn.jiguang.common.ClientConfig;
 import cn.jpush.api.JPushClient;
+import com.springboot.test.model.entity.Admin;
 import com.springboot.test.websocket.NettyServer;
 import com.xxl.job.core.executor.XxlJobExecutor;
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
@@ -26,7 +27,6 @@ import javax.servlet.MultipartConfigElement;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
 
 /**
  * Created by Administrator on 2017/5/31.
@@ -50,7 +50,7 @@ public class SpringBootMain extends SpringBootServletInitializer {
 
 
 
-    @Bean(initMethod = "start",destroyMethod = "destroy")
+//    @Bean(initMethod = "start",destroyMethod = "destroy")
     public XxlJobSpringExecutor  xxlJobExecutor(@Value("${xxl.job.address}") String address,
                                          @Value("${xxl.job.logpath}")String logpath,
                                          @Value("${xxl.job.executor.port}") int port){

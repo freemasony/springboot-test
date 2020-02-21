@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class JsonRsult<T> implements Serializable {
+public class JsonResult<T> implements Serializable {
 
     private String code;
 
