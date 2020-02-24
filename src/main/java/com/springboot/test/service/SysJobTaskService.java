@@ -5,6 +5,7 @@ import com.springboot.test.model.entity.SysJobTask;
 import com.springboot.test.repository.SysJobTaskDao;
 import com.springboot.test.scheduler.CronTaskRegistrar;
 import com.springboot.test.scheduler.SchedulingRunnable;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,21 +26,28 @@ public class SysJobTaskService {
     @Autowired
     private CronTaskRegistrar cronTaskRegistrar;
 
-    public List<SysJobTask> list(Integer status){
+    public List<SysJobTask> list(Integer status) {
         return sysJobTaskDao.findByStatus(status);
     }
 
-    public SysJobTask save(SysJobTask task){
+    public SysJobTask save(SysJobTask task) {
         return sysJobTaskDao.save(task);
     }
 
 
-    public Boolean addSysJob(SysJobTask task){
+    public Boolean addSysJob(SysJobTask task) {
         SysJobTask success = save(task);
         if (task.getStatus() == 1) {
-            SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(), task.getMethodParams());
+            SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(),
+                    StringUtils.isNotBlank(task.getMethodParams()) ? task.getMethodParams().split(",") : null);
             cronTaskRegistrar.addCronTask(schedulingRunnable, task.getCronExpres());
         }
+        return Boolean.TRUE;
+    }
+
+    public Boolean addTask(String beanName, String methodName, String cronExpression, String params) {
+        SchedulingRunnable task = new SchedulingRunnable(beanName, methodName, StringUtils.isEmpty(params)?null:params.split(","));
+        cronTaskRegistrar.addCronTask(task, cronExpression);
         return Boolean.TRUE;
     }
 }
