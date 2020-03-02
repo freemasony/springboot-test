@@ -15,6 +15,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.task.AsyncTaskExecutor;
@@ -35,6 +36,7 @@ import java.io.FileNotFoundException;
 @EnableScheduling
 @SpringBootApplication
 @EnableAsync
+@EnableAspectJAutoProxy
 public class SpringBootMain extends SpringBootServletInitializer {
 
     public static void main(String[] args) throws Exception {
