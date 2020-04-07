@@ -10,6 +10,6 @@ public @interface OperateLog {
 
     String remark() default "";
 
-    OperateType operateType();
+    OperateType[] operateType();
 
 }

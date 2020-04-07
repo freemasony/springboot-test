@@ -3,6 +3,7 @@ package com.springboot.test.controller;
 import com.springboot.test.aop.OperateLog;
 import com.springboot.test.aop.OperateType;
 import com.springboot.test.common.JsonResult;
+import com.springboot.test.model.user.entity.Admin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -55,7 +56,7 @@ public class OperateLogController {
     @OperateLog(remark = "query",operateType = OperateType.query)
     @RequestMapping(value = "/query",method = RequestMethod.GET)
     @ResponseBody
-    public JsonResult query() throws Exception {
+    public JsonResult query(String  query, Admin admin) throws Exception {
         JsonResult rsult=new JsonResult();
         rsult.setCode("0000");
         rsult.setMsg("query");

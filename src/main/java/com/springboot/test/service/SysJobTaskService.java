@@ -1,8 +1,7 @@
 package com.springboot.test.service;
 
-import com.springboot.test.common.JsonResult;
-import com.springboot.test.model.entity.SysJobTask;
-import com.springboot.test.repository.SysJobTaskDao;
+import com.springboot.test.model.user.entity.SysJobTask;
+import com.springboot.test.repository.user.SysJobTaskDao;
 import com.springboot.test.scheduler.CronTaskRegistrar;
 import com.springboot.test.scheduler.SchedulingRunnable;
 import org.apache.commons.lang3.StringUtils;

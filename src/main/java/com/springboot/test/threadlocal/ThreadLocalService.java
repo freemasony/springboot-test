@@ -1,11 +1,7 @@
 package com.springboot.test.threadlocal;
 
-import com.springboot.test.model.entity.User;
-import org.springframework.scheduling.annotation.Async;
+import com.springboot.test.model.user.entity.User;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author zhoujian

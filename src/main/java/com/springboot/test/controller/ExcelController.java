@@ -1,8 +1,8 @@
 package com.springboot.test.controller;
 
 import com.springboot.test.excel.ExcelUtil;
-import com.springboot.test.model.ExportInfo;
-import com.springboot.test.model.ImportInfo;
+import com.springboot.test.model.vo.ExportInfo;
+import com.springboot.test.model.vo.ImportInfo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
