@@ -4,6 +4,7 @@ import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
+import com.alibaba.excel.metadata.Table;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,6 +89,47 @@ public class ExcelUtil {
         Sheet sheet = new Sheet(1, 0, object.getClass());
         sheet.setSheetName(sheetName);
         writer.write(list, sheet);
+        writer.finish();
+    }
+
+
+    /**
+     * 导出 Excel ：一个 sheet，带表头
+     *
+     * @param response  HttpServletResponse
+     * @param list      数据 list，每个元素为一个 BaseRowModel
+     * @param fileName  导出的文件名
+     * @param sheetName 导入文件的 sheet 名
+     * @param object    映射实体类，Excel 模型
+     */
+    public static void writeDuoExcel(HttpServletResponse response, List<? extends BaseRowModel> list,
+                                  String fileName, String sheetName, BaseRowModel object) {
+        ExcelWriter writer = new ExcelWriter(getOutputStream(fileName, response), ExcelTypeEnum.XLSX);
+        Sheet sheet = new Sheet(1, 0, object.getClass());
+        sheet.setSheetName(sheetName);
+        Table table = new Table(1);
+        List<List<String>> headList = new ArrayList<List<String>>();
+        // 第 n 行 的表头
+        List<String> headTitle0 = new ArrayList<String>();
+        List<String> headTitle1 = new ArrayList<String>();
+        List<String> headTitle2 = new ArrayList<String>();
+        List<String> headTitle3 = new ArrayList<String>();
+        headTitle0.add("推荐阶段");
+        headTitle0.add("客户数");
+        headTitle1.add("初试阶段");
+        headTitle1.add("职位数");
+        headTitle2.add("offer阶段");
+        headTitle2.add("客户数");
+        headTitle3.add("offer阶段");
+        headTitle3.add("职位数");
+
+        headList.add(headTitle0);
+        headList.add(headTitle1);
+        headList.add(headTitle2);
+        headList.add(headTitle3);
+        table.setHead(headList);
+
+        writer.write(list,sheet,table);
         writer.finish();
     }
 

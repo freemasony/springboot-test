@@ -5,6 +5,8 @@ import cn.jiguang.common.resp.APIRequestException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.springboot.test.common.JsonResult;
+import com.springboot.test.common.RuyuUtil;
+import com.springboot.test.listener.MyEvent;
 import com.springboot.test.model.user.entity.Admin;
 import com.springboot.test.model.vo.UserInfo;
 import com.springboot.test.model.vo.JsonInfo;
@@ -15,6 +17,7 @@ import com.springboot.test.service.ThreadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,10 +50,20 @@ public class ApiController {
     @Autowired
     private JPushService jPushService;
 
+    @Autowired
+    private ApplicationContext context;
+
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)
     public String  get(HttpServletRequest httpServletRequest, HttpServletResponse response, Model model) throws IOException {
         model.addAttribute("code","00001");
+        RuyuUtil rc = new RuyuUtil();
+        //System.out.println(x + " - ");
+        try {
+            rc.getImagePixel("C://1.png",response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "test";
     }
 
@@ -190,4 +203,18 @@ public class ApiController {
         return rsult;
     }
 
+
+    @RequestMapping(value = "/event",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResult  event(HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
+        JsonResult rsult=new JsonResult();
+        Map<String,Object> map=new HashMap<>();
+        MyEvent event=new MyEvent(100L,"aaa",1);
+        context.publishEvent(event);
+        map.put("event",event);
+        rsult.setData(map);
+        rsult.setCode("0000");
+        rsult.setMsg("成功");
+        return rsult;
+    }
 }
