@@ -1,5 +1,6 @@
 package com.springboot.test.webserivce;
 
+import com.springboot.test.common.JsonSerializeUtil;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,12 @@ public class WebServiceClient {
         Object[] objects;
         try {
             objects = client.invoke(name, xmlStr);
-            result=objects[0].toString();
+            if(objects[0] instanceof String ){
+                result=objects[0].toString();
+            }else if(objects[0] instanceof Object){
+                result= JsonSerializeUtil.objectToJson(objects[0]);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

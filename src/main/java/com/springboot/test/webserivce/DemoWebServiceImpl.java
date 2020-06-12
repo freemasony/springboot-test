@@ -1,5 +1,7 @@
 package com.springboot.test.webserivce;
 
+import com.springboot.test.common.webServiceResult;
+
 import javax.jws.WebService;
 
 /**
@@ -10,8 +12,11 @@ import javax.jws.WebService;
             endpointInterface = "com.springboot.test.webserivce.DemoWebService")
 public class DemoWebServiceImpl implements DemoWebService {
 
+
     @Override
-    public String sayHello(String name) {
-        return name+",您好！";
+    public webServiceResult sayHello(String name) {
+        webServiceResult result=webServiceResult.success();
+        result.setData(name);
+        return result;
     }
 }
