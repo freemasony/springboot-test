@@ -2,14 +2,12 @@ package com.springboot.test.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springboot.test.model.PushInfo;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.springboot.test.model.vo.PushInfo;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 

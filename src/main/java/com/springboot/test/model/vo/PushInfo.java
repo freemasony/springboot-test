@@ -1,4 +1,4 @@
-package com.springboot.test.model;
+package com.springboot.test.model.vo;
 
 import lombok.*;
 

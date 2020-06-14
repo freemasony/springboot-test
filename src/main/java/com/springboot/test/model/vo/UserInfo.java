@@ -1,6 +1,6 @@
-package com.springboot.test.model;
+package com.springboot.test.model.vo;
 
-import com.springboot.test.model.entity.User;
+import com.springboot.test.model.user.entity.User;
 import lombok.*;
 
 import java.util.List;

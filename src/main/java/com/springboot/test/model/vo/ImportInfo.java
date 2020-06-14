@@ -1,7 +1,8 @@
-package com.springboot.test.model;
+package com.springboot.test.model.vo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.metadata.BaseRowModel;
+import lombok.NoArgsConstructor;
 
 /**
  * Created with IntelliJ IDEA
@@ -10,19 +11,20 @@ import com.alibaba.excel.metadata.BaseRowModel;
  * @Description 导入 Excel 时使用的映射实体类，Excel 模型
  * @Date 2018-12-19
  */
-public class ExportInfo extends BaseRowModel {
-    @ExcelProperty(value = "姓名" ,index = 0)
+@NoArgsConstructor
+public class ImportInfo extends BaseRowModel {
+    @ExcelProperty(index = 0)
     private String name;
 
-    @ExcelProperty(value = "年龄",index = 1)
+    @ExcelProperty(index = 1)
     private String age;
 
-    @ExcelProperty(value = "邮箱",index = 2)
+    @ExcelProperty(index = 2)
     private String email;
 
-    @ExcelProperty(value = "地址",index = 3)
-    private String address;
-
+    /*
+        作为 excel 的模型映射，需要 setter 方法
+     */
     public String getName() {
         return name;
     }
@@ -47,11 +49,12 @@ public class ExportInfo extends BaseRowModel {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    @Override
+    public String toString() {
+        return "Info{" +
+                "name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

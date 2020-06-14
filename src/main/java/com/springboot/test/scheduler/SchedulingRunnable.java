@@ -21,13 +21,13 @@ public class SchedulingRunnable implements Runnable {
 
     private String methodName;
 
-    private String params;
+    private Object[] params;
 
     public SchedulingRunnable(String beanName, String methodName) {
         this(beanName,methodName,null);
     }
 
-    public SchedulingRunnable(String beanName, String methodName, String params) {
+    public SchedulingRunnable(String beanName, String methodName, Object[] params) {
         this.beanName = beanName;
         this.methodName = methodName;
         this.params = params;
@@ -41,14 +41,18 @@ public class SchedulingRunnable implements Runnable {
         try {
             Object target=SpringContextUtils.getBean(beanName);
             Method method = null;
-            if (StringUtils.isNotEmpty(params)) {
-                method = target.getClass().getDeclaredMethod(methodName, String.class);
+            if (null != params && params.length > 0) {
+                Class<?>[] paramCls = new Class[params.length];
+                for (int i = 0; i < params.length; i++) {
+                    paramCls[i] = params[i].getClass();
+                }
+                method = target.getClass().getDeclaredMethod(methodName, paramCls);
             } else {
                 method = target.getClass().getDeclaredMethod(methodName);
             }
 
             ReflectionUtils.makeAccessible(method);
-            if(StringUtils.isNotBlank(params)){
+            if (null != params && params.length > 0) {
                 method.invoke(target,params);
             }else {
                 method.invoke(target);

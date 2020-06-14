@@ -5,8 +5,8 @@ import cn.jiguang.common.resp.APIRequestException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.springboot.test.common.JsonResult;
-import com.springboot.test.model.UserInfo;
-import com.springboot.test.model.entity.Admin;
+import com.springboot.test.model.user.entity.Admin;
+import com.springboot.test.model.vo.UserInfo;
 import com.springboot.test.model.vo.JsonInfo;
 import com.springboot.test.push.jgpush.JPushService;
 import com.springboot.test.service.AdminService;
@@ -177,19 +177,17 @@ public class ApiController {
         return rsult;
     }
 
-    @RequestMapping(value = "/dd",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
-    public JsonResult dd() throws Exception {
+    public JsonResult  list(HttpServletRequest httpServletRequest, HttpServletResponse response) throws IOException {
         JsonResult rsult=new JsonResult();
-//        dingtalkService.getAuthScopes();
-//        dingtalkService.getDepartmentList();
-//        dingtalkService.getUserInfoByDepartMentId();
-//        dingtalkService.send();
+        Map<String,Object> map=new HashMap<>();
+        map.put("list",adminService.list());
+        rsult.setData(map);
         rsult.setCode("0000");
-        rsult.setMsg("");
+        rsult.setMsg("成功");
         return rsult;
     }
-
-
 
 }

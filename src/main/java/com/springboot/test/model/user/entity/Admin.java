@@ -1,4 +1,4 @@
-package com.springboot.test.model.entity;
+package com.springboot.test.model.user.entity;
 
 import lombok.Getter;
 import lombok.Setter;
