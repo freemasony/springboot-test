@@ -6,7 +6,7 @@ import java.util.concurrent.ScheduledFuture;
  * @author zhoujian
  * @date 2020/2/21
  */
-public final class ScheduledTask {
+public final class ScheduledFutureTask {
     volatile ScheduledFuture future;
 
     public void cancel(){

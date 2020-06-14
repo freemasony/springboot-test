@@ -35,10 +35,47 @@ public class SysJobTaskService {
 
 
     public Boolean addSysJob(SysJobTask task){
-        SysJobTask success = save(task);
+        task = save(task);
         if (task.getStatus() == 1) {
             SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(), task.getMethodParams());
             cronTaskRegistrar.addCronTask(schedulingRunnable, task.getCronExpres());
+        }
+        return Boolean.TRUE;
+    }
+
+    public Boolean updateSysJob(SysJobTask task){
+        task = sysJobTaskDao.save(task);
+            //先移除再添加
+            if (task.getStatus() == 1) {
+                SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(), task.getMethodParams());
+                cronTaskRegistrar.removeCronTask(schedulingRunnable);
+            }
+
+            if (task.getStatus() == 1) {
+                SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(), task.getMethodParams());
+                cronTaskRegistrar.addCronTask(schedulingRunnable, task.getCronExpres());
+            }
+        return Boolean.TRUE;
+    }
+
+    public Boolean deleteSysJob(Long taskId){
+        SysJobTask task= sysJobTaskDao.findOne(taskId);
+        sysJobTaskDao.delete(taskId);
+        if (task.getStatus() == 1) {
+            SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(), task.getMethodParams());
+            cronTaskRegistrar.removeCronTask(schedulingRunnable);
+        }
+        return Boolean.TRUE;
+    }
+
+    public Boolean startOrStop(Long taskId){
+        SysJobTask task= sysJobTaskDao.findOne(taskId);
+        if (task.getStatus() == 1) {
+            SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(), task.getMethodParams());
+            cronTaskRegistrar.addCronTask(schedulingRunnable, task.getCronExpres());
+        } else {
+            SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(), task.getMethodParams());
+            cronTaskRegistrar.removeCronTask(schedulingRunnable);
         }
         return Boolean.TRUE;
     }
