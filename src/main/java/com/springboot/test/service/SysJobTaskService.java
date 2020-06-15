@@ -34,12 +34,37 @@ public class SysJobTaskService {
     }
 
 
+
     public Boolean addSysJob(SysJobTask task) {
         SysJobTask success = save(task);
         if (task.getStatus() == 1) {
             SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(),
                     StringUtils.isNotBlank(task.getMethodParams()) ? task.getMethodParams().split(",") : null);
             cronTaskRegistrar.addCronTask(schedulingRunnable, task.getCronExpres());
+        }
+        return Boolean.TRUE;
+    }
+
+
+
+    public Boolean deleteSysJob(Long taskId){
+        SysJobTask task= sysJobTaskDao.findOne(taskId);
+        sysJobTaskDao.delete(taskId);
+        if (task.getStatus() == 1) {
+            SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(), StringUtils.isNotBlank(task.getMethodParams()) ? task.getMethodParams().split(",") : null);
+            cronTaskRegistrar.removeCronTask(schedulingRunnable);
+        }
+        return Boolean.TRUE;
+    }
+
+    public Boolean startOrStop(Long taskId) {
+        SysJobTask task = sysJobTaskDao.findOne(taskId);
+        if (task.getStatus() == 1) {
+            SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(), StringUtils.isNotBlank(task.getMethodParams()) ? task.getMethodParams().split(",") : null);
+            cronTaskRegistrar.addCronTask(schedulingRunnable, task.getCronExpres());
+        } else {
+            SchedulingRunnable schedulingRunnable = new SchedulingRunnable(task.getBeanName(), task.getMethodName(), StringUtils.isNotBlank(task.getMethodParams()) ? task.getMethodParams().split(",") : null);
+            cronTaskRegistrar.removeCronTask(schedulingRunnable);
         }
         return Boolean.TRUE;
     }
