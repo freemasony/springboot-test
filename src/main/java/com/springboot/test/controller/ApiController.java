@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
  * Created by zhoujian on 2018/9/5.
  */
 @Controller
+@RequestMapping(value = "/api")
 public class ApiController {
 
     private Logger logger= LoggerFactory.getLogger(ApiController.class);
