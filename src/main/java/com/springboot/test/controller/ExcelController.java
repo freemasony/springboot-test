@@ -3,6 +3,7 @@ package com.springboot.test.controller;
 import com.springboot.test.excel.ExcelUtil;
 import com.springboot.test.model.vo.ExportInfo;
 import com.springboot.test.model.vo.ImportInfo;
+import com.springboot.test.model.vo.pipelineModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,6 +55,18 @@ public class ExcelController {
     }
 
     /**
+     * 导出 Excel（一个 sheet）
+     */
+    @RequestMapping(value = "writeduoExcel", method = RequestMethod.GET)
+    public void writeduoExcel(HttpServletResponse response) throws IOException {
+        List<pipelineModel> list = getDuoList();
+        String fileName = "一个 Excel 文件";
+        String sheetName = "第一个 sheet";
+
+        ExcelUtil.writeDuoExcel(response, list, fileName, sheetName, new pipelineModel());
+    }
+
+    /**
      * 导出 Excel（多个 sheet）
      */
     @RequestMapping(value = "writeExcelWithSheets", method = RequestMethod.GET)
@@ -85,6 +98,16 @@ public class ExcelController {
             model2.setAddress("198752233");
             model2.setEmail("198752233@gmail.com");
             list.add(model2);
+        }
+
+        return list;
+    }
+
+    private List<pipelineModel> getDuoList() {
+        List<pipelineModel> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            pipelineModel model1 = new pipelineModel();
+            list.add(model1);
         }
 
         return list;
